@@ -8,4 +8,3 @@ This is an AI-powered turnip price predictor built with **React**, **TypeScript*
 - **LLM Integration**: OpenAI GPT models generate personalized trading recommendations.
 - **Pattern Recognition**: Analyze turnip price patterns with AI-powered prediction.
 - **Vector Database**: PostgreSQL with pgvector for semantic search of trading guides.
-aaaa
