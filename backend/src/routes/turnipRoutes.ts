@@ -1,7 +1,15 @@
 import { Router, Request, Response } from "express";
-import { generateTurnipWeek } from "../services/turnipService";
+import { generateTurnipWeek, analyzePattern } from "../services/turnipService";
 import pool from "../db";
 import { generateAdvice, generateEmbedding } from "../services/openaiService";
+import { safeRedisGet, safeRedisSet } from "../cache/redis";
+
+interface Guide {
+  id: number;
+  title: string;
+  content: string;
+  distance?: number;
+}
 
 const router = Router();
 
@@ -102,8 +110,20 @@ router.post("/advice", async (req: Request, res: Response) => {
   }
 });
 
-async function findRelevantGuides(queryText: string) {
+const findRelevantGuides = async (queryText: string): Promise<Guide[]> => {
+  const cacheKey = `guides:${Buffer.from(queryText.toLowerCase().trim()).toString("base64")}`;
+  
   try {
+    // Try to get from cache first
+    const cached = await safeRedisGet(cacheKey);
+    if (cached) {
+      console.log('Cache hit for guides query');
+      return JSON.parse(cached);
+    }
+
+    console.log('Cache miss, performing vector search...');
+    
+    // Not in cache, do the expensive vector search
     const queryEmbedding = await generateEmbedding(queryText);
     const queryVector = `[${queryEmbedding.join(",")}]`;
 
@@ -117,48 +137,32 @@ async function findRelevantGuides(queryText: string) {
     `;
 
     const result = await pool.query(query, [queryVector]);
+    
+    // Cache the result for 1 hour (3600 seconds)
+    await safeRedisSet(cacheKey, JSON.stringify(result.rows), 3600);
+    console.log('Cached guides result for 1 hour');
+    
     return result.rows;
   } catch (error) {
     console.error("Error finding guides with vector search:", error);
 
-    const keyword = queryText.toLowerCase().includes("decreasing")
-      ? "%decreasing%"
-      : queryText.toLowerCase().includes("spike")
-      ? "%spike%"
-      : "%random%";
+    // Fallback to keyword search (no caching for fallback)
+    try {
+      const keyword = queryText.toLowerCase().includes("decreasing")
+        ? "%decreasing%"
+        : queryText.toLowerCase().includes("spike")
+        ? "%spike%"
+        : "%random%";
 
-    const fallbackResult = await pool.query(
-      "SELECT id, title, content FROM guides WHERE LOWER(content) LIKE $1 LIMIT 3",
-      [keyword]
-    );
-    return fallbackResult.rows;
-  }
-}
-
-const analyzePattern = (prices: number[]) => {
-  const hasSpike = prices.some((price) => price > prices[0] * 1.5);
-  const isDecreasing = prices.every(
-    (price, i) => i === 0 || price <= prices[i - 1]
-  );
-
-  if (hasSpike) {
-    return {
-      likelyPattern: "spike",
-      confidence: 0.8,
-      advice: "Looks like a spike pattern! Consider selling during the peak.",
-    };
-  } else if (isDecreasing) {
-    return {
-      likelyPattern: "decreasing",
-      confidence: 0.9,
-      advice: "Decreasing pattern detected. Sell soon to minimize losses.",
-    };
-  } else {
-    return {
-      likelyPattern: "random",
-      confidence: 0.6,
-      advice: "Random pattern. Monitor prices and sell when profitable.",
-    };
+      const fallbackResult = await pool.query(
+        "SELECT id, title, content FROM guides WHERE LOWER(content) LIKE $1 LIMIT 3",
+        [keyword]
+      );
+      return fallbackResult.rows;
+    } catch (dbErr) {
+      console.error("Fallback guide query error", dbErr);
+      return [];
+    }
   }
 };
 

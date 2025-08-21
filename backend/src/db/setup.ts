@@ -59,7 +59,7 @@ const setupDatabase = async () => {
       CREATE TABLE IF NOT EXISTS turnip_weeks (
         id SERIAL PRIMARY KEY,
         week_date DATE NOT NULL,
-        pattern_type VARCHAR(50) NOT NULL CHECK (pattern_type IN ('spike', 'decreasing', 'random')),
+        pattern_type VARCHAR(50) NOT NULL CHECK (pattern_type IN ('spike', 'decreasing', 'random', 'flat', 'mixed')),
         prices JSONB NOT NULL,
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
       );

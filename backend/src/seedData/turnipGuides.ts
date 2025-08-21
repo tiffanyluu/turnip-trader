@@ -2,7 +2,7 @@ export const turnipGuides = [
   {
     title: "Understanding Turnip Patterns - The Basics",
     content:
-      "There are three main turnip patterns in Animal Crossing: Spike, Decreasing, and Random. Spike patterns have one major price increase during the week, usually mid-week. Decreasing patterns steadily drop from Monday to Saturday. Random patterns fluctuate unpredictably throughout the week.",
+      "There are five main turnip patterns in Animal Crossing: Spike, Decreasing, Random, Flat, and Mixed. Spike patterns have one major price increase during the week, usually mid-week. Decreasing patterns steadily drop from Monday to Saturday. Random patterns fluctuate unpredictably. Flat patterns stay stable with small changes. Mixed patterns combine spikes and drops.",
   },
   {
     title: "When to Sell - Timing Your Sales",
@@ -23,6 +23,11 @@ export const turnipGuides = [
     title: "Random Pattern Strategy",
     content:
       "Random patterns can surprise you with good prices any day. Monitor prices carefully and sell when you see a good opportunity above 120-130 bells. Don't wait too long as random patterns can drop unexpectedly.",
+  },
+  {
+    title: "Flat and Mixed Pattern Tips",
+    content:
+      "Flat patterns are low-risk with steady prices around your buy price - good for beginners or safe trading. Mixed patterns combine spikes and drops unpredictably - sell during any peak above 130 bells as the pattern can change quickly.",
   },
   {
     title: "Risk Management for Turnip Trading",
