@@ -16,7 +16,7 @@ const acColors = {
   paper: '#F5F5DC',             // Beige
   
   // Turnip colors
-  turnipYellow: '#FFD700',      // Gold
+  turnipYellow: '#DAA520',      // Goldenrod 
   profit: '#32CD32',            // Lime green
   loss: '#DC143C',              // Crimson
 };
@@ -55,15 +55,22 @@ export const theme = createTheme({
       'Arial',
       'sans-serif'
     ].join(','),
+
+    fontWeightRegular: 500,
+    fontWeightMedium: 600,
+    fontWeightBold: 700,
     
     h4: {
-      fontWeight: 600,
+      fontWeight: 700,
       color: acColors.darkGreen,
     },
     
     h6: {
-      fontWeight: 500,
+      fontWeight: 600,
       color: acColors.brown,
+    },
+    body1: {
+      fontWeight: 500,
     },
   },
   
