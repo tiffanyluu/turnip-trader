@@ -2,7 +2,7 @@ export const turnipGuides = [
   {
     title: "Understanding Turnip Patterns - The Basics",
     content:
-      "There are five main turnip patterns in Animal Crossing: Spike, Decreasing, Random, Flat, and Mixed. Spike patterns have one major price increase during the week, usually mid-week. Decreasing patterns steadily drop from Monday to Saturday. Random patterns fluctuate unpredictably. Flat patterns stay stable with small changes. Mixed patterns combine spikes and drops.",
+      "There are four main turnip patterns in Animal Crossing: Large Spike, Small Spike, Decreasing, and Random. Large spike patterns have one massive price increase (200-600% of buy price) during the week, usually Tuesday-Thursday. Small spike patterns have a moderate increase (140-200%). Decreasing patterns steadily drop from Monday to Saturday. Random patterns fluctuate unpredictably with small peaks.",
   },
   {
     title: "When to Sell - Timing Your Sales",
@@ -10,9 +10,14 @@ export const turnipGuides = [
       "Monitor your prices daily. If you see prices above 150 bells and you bought for 90-110, that's usually a good profit. Don't wait too long on Thursday/Friday as prices often crash. Saturday is your last chance, so sell even at a loss rather than lose everything.",
   },
   {
-    title: "Spike Pattern Recognition",
+    title: "Large Spike Pattern Recognition",
     content:
-      "Spikes typically happen Tuesday through Thursday. Look for a sudden jump from low prices (60-80 bells) to high prices (200-400 bells). If you see this pattern emerging, sell immediately during the spike as it won't last long.",
+      "Large spikes typically happen Tuesday through Thursday. Look for a sudden jump from low prices (60-80 bells) to very high prices (300-600 bells). This is the most profitable pattern - sell immediately during the spike as it only lasts one price period and won't repeat.",
+  },
+  {
+    title: "Small Spike Pattern Strategy",
+    content:
+      "Small spikes reach 140-200% of your buy price and are more predictable than large spikes. They usually occur mid-week after an initial price drop. While not as profitable as large spikes, they're still good opportunities - sell during the peak.",
   },
   {
     title: "Decreasing Pattern Strategy",
@@ -22,12 +27,7 @@ export const turnipGuides = [
   {
     title: "Random Pattern Strategy",
     content:
-      "Random patterns can surprise you with good prices any day. Monitor prices carefully and sell when you see a good opportunity above 120-130 bells. Don't wait too long as random patterns can drop unexpectedly.",
-  },
-  {
-    title: "Flat and Mixed Pattern Tips",
-    content:
-      "Flat patterns are low-risk with steady prices around your buy price - good for beginners or safe trading. Mixed patterns combine spikes and drops unpredictably - sell during any peak above 130 bells as the pattern can change quickly.",
+      "Random patterns can surprise you with good prices any day, but peaks rarely exceed 140% of buy price. Monitor prices carefully and sell when you see a good opportunity above 120-130 bells. Don't wait too long as random patterns can drop unexpectedly.",
   },
   {
     title: "Risk Management for Turnip Trading",

@@ -18,16 +18,15 @@ const TurnipCard: React.FC<TurnipCardProps> = ({
   children,
   icon = '🥕'
 }) => {
-    const getPatternColor = (pattern?: string): 'default' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning' => {
-        switch (pattern?.toLowerCase()) {
-          case 'spike': return 'success';
-          case 'decreasing': return 'error'; 
-          case 'random': return 'warning';
-          case 'flat': return 'info';
-          case 'mixed': return 'secondary';
-          default: return 'default';
-        }
-      };
+  const getPatternColor = (pattern?: string): 'default' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning' => {
+    switch (pattern?.toLowerCase()) {
+      case 'large_spike': return 'success';
+      case 'small_spike': return 'warning';
+      case 'decreasing': return 'error';
+      case 'random': return 'info';
+      default: return 'default';
+    }
+  };
 
   return (
     <Card

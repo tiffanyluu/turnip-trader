@@ -1,4 +1,4 @@
-export type TurnipPattern = "spike" | "decreasing" | "random" | "flat" | "mixed";
+export type TurnipPattern = "large_spike" | "small_spike" | "decreasing" | "random";
 
 export interface ApiResponse<T> {
   success: boolean;

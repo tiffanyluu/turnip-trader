@@ -11,18 +11,7 @@ interface SimulateData {
   buyPrice: number;
   prices: number[];
   weekDate: string;
-}
-
-interface PredictData {
-  likelyPattern: TurnipPattern;
-  confidence: number;
   advice: string;
-}
-
-interface AdviceData {
-  advice: string;
-  guidesUsed: string[];
-  confidence: number;
 }
 
 const api = axios.create({
@@ -72,53 +61,6 @@ export const simulateWeek = async (): Promise<SimulateData> => {
     }
   } catch (error) {
     return handleApiError(error, 'simulate turnip week');
-  }
-};
-
-export const predictPattern = async (prices: number[]): Promise<PredictData> => {
-  try {
-    console.log('Predicting pattern for prices:', prices);
-    
-    if (!prices || prices.length === 0) {
-      throw new Error('Please enter some prices first');
-    }
-    
-    const response: AxiosResponse<ApiResponse<PredictData>> = await api.post('/predict', {
-      prices: prices
-    });
-    
-    if (response.data.success && response.data.data) {
-      console.log('Pattern predicted successfully:', response.data.data);
-      return response.data.data;
-    } else {
-      throw new Error(response.data.error || 'Pattern prediction failed');
-    }
-  } catch (error) {
-    return handleApiError(error, 'predict turnip pattern');
-  }
-};
-
-export const getAdvice = async (prices: number[], pattern?: TurnipPattern): Promise<AdviceData> => {
-  try {
-    console.log('Getting advice for prices:', prices, 'pattern:', pattern);
-    
-    if (!prices || prices.length === 0) {
-      throw new Error('Please enter some prices to get advice');
-    }
-    
-    const response: AxiosResponse<ApiResponse<AdviceData>> = await api.post('/advice', {
-      prices: prices,
-      pattern: pattern
-    });
-    
-    if (response.data.success && response.data.data) {
-      console.log('Advice received successfully:', response.data.data);
-      return response.data.data;
-    } else {
-      throw new Error(response.data.error || 'Failed to get advice');
-    }
-  } catch (error) {
-    return handleApiError(error, 'get trading advice');
   }
 };
 
