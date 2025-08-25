@@ -1,10 +1,25 @@
-# Turnip Trader
+# Turnip Trader  
 
-This is an AI-powered turnip price predictor built with **React**, **TypeScript**, **Node.js**, **Express**, and **PostgreSQL**, designed for Animal Crossing players. The app uses RAG (Retrieval-Augmented Generation) to provide personalized trading advice based on community guides and LLM analysis.
+Turnip Trader is an AI-powered turnip price simulator and advisor for *Animal Crossing*.  
+It combines simulation of in-game price patterns with **RAG (Retrieval-Augmented Generation)** over community trading guides to generate practical advice on when to buy or sell.  
 
-## Features
+## Features  
 
-- **RAG System**: Retrieves relevant trading guides using vector embeddings for contextual advice.
-- **LLM Integration**: OpenAI GPT models generate personalized trading recommendations.
-- **Pattern Recognition**: Analyze turnip price patterns with AI-powered prediction.
-- **Vector Database**: PostgreSQL with pgvector for semantic search of trading guides.
+- **Turnip Price Simulation**: Generate a full week of realistic prices based on in-game mechanics.  
+- **RAG System**: Retrieve strategies and insights from a vector database of community guides.  
+- **LLM-Powered Advice**: Combine your simulated week with retrieved guides for personalized recommendations.  
+- **Vector Database**: PostgreSQL with pgvector stores embeddings of trading guides for semantic search.  
+
+## Tech Stack  
+
+- **Frontend**: React + TypeScript  
+- **Backend**: Node.js + Express  
+- **Database**: PostgreSQL + pgvector  
+- **AI**: OpenAI GPT models for advice generation  
+
+## How It Works  
+
+1. **Simulate Prices** – The app generates a week of turnip prices using known ACNH price patterns.  
+2. **Formulate Query** – Your simulated week is turned into a natural-language query about strategy.  
+3. **Retrieve Guides** – Relevant community strategies are pulled from a vector database.  
+4. **Generate Advice** – An LLM combines simulation + guides to provide actionable recommendations.  
