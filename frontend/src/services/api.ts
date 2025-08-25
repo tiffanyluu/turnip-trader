@@ -1,0 +1,125 @@
+import axios from 'axios';
+import type { AxiosResponse } from 'axios';
+import type { ApiResponse, TurnipPattern } from '../types/turnip';
+
+const API_BASE_URL = 'http://localhost:3001/api';
+const TIMEOUT = 10000;
+
+interface SimulateData {
+  id: number;
+  pattern: TurnipPattern;
+  buyPrice: number;
+  prices: number[];
+  weekDate: string;
+}
+
+interface PredictData {
+  likelyPattern: TurnipPattern;
+  confidence: number;
+  advice: string;
+}
+
+interface AdviceData {
+  advice: string;
+  guidesUsed: string[];
+  confidence: number;
+}
+
+const api = axios.create({
+  baseURL: API_BASE_URL,
+  timeout: TIMEOUT,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+const handleApiError = (error: unknown, operation: string): never => {
+  let userMessage = `Failed to ${operation}. Please try again.`;
+  let consoleError: string = `${operation} failed`;
+
+  if (axios.isAxiosError(error)) {
+    if (error.response) {
+      consoleError = `${operation} failed: ${error.response.status} - ${error.response.data?.error || error.response.statusText}`;
+      
+      if (error.response.status >= 500) {
+        userMessage = 'Server error. Please try again later.';
+      } else if (error.response.status === 400) {
+        userMessage = error.response.data?.error || 'Invalid request. Please check your input.';
+      }
+    } else if (error.request) {
+      consoleError = `${operation} failed: No response from server`;
+      userMessage = 'Cannot connect to server. Please check your connection.';
+    }
+  } else if (error instanceof Error) {
+    consoleError = `${operation} failed: ${error.message}`;
+    userMessage = error.message;
+  }
+
+  console.error('API Error:', consoleError);
+  throw new Error(userMessage);
+};
+
+export const simulateWeek = async (): Promise<SimulateData> => {
+  try {
+    console.log('Simulating turnip week...');
+    const response: AxiosResponse<ApiResponse<SimulateData>> = await api.post('/simulate');
+    
+    if (response.data.success && response.data.data) {
+      console.log('Week simulated successfully:', response.data.data);
+      return response.data.data;
+    } else {
+      throw new Error(response.data.error || 'Simulation failed');
+    }
+  } catch (error) {
+    return handleApiError(error, 'simulate turnip week');
+  }
+};
+
+export const predictPattern = async (prices: number[]): Promise<PredictData> => {
+  try {
+    console.log('Predicting pattern for prices:', prices);
+    
+    if (!prices || prices.length === 0) {
+      throw new Error('Please enter some prices first');
+    }
+    
+    const response: AxiosResponse<ApiResponse<PredictData>> = await api.post('/predict', {
+      prices: prices
+    });
+    
+    if (response.data.success && response.data.data) {
+      console.log('Pattern predicted successfully:', response.data.data);
+      return response.data.data;
+    } else {
+      throw new Error(response.data.error || 'Pattern prediction failed');
+    }
+  } catch (error) {
+    return handleApiError(error, 'predict turnip pattern');
+  }
+};
+
+export const getAdvice = async (prices: number[], pattern?: TurnipPattern): Promise<AdviceData> => {
+  try {
+    console.log('Getting advice for prices:', prices, 'pattern:', pattern);
+    
+    if (!prices || prices.length === 0) {
+      throw new Error('Please enter some prices to get advice');
+    }
+    
+    const response: AxiosResponse<ApiResponse<AdviceData>> = await api.post('/advice', {
+      prices: prices,
+      pattern: pattern
+    });
+    
+    if (response.data.success && response.data.data) {
+      console.log('Advice received successfully:', response.data.data);
+      return response.data.data;
+    } else {
+      throw new Error(response.data.error || 'Failed to get advice');
+    }
+  } catch (error) {
+    return handleApiError(error, 'get trading advice');
+  }
+};
+
+export default api;
