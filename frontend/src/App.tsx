@@ -1,6 +1,9 @@
 import { useState } from 'react';
-import { Box, Container, Button, Alert } from '@mui/material';
+import { Button, Alert } from '@mui/material';
 import { simulateWeek, predictPattern, getAdvice } from './services/api';
+import AppLayout from './components/layout/AppLayout';
+import ControlsSection from './components/layout/ControlsSection';
+import DataSection from './components/layout/DataSection';
 import IsabelleTextBox from './components/shared/IsabelleTextBox';
 import TurnipCard from './components/shared/TurnipCard';
 import PatternChart from './components/shared/PatternChart';
@@ -23,8 +26,8 @@ function App() {
   const handleSimulate = async () => {
     try {
       setLoading(true);
-      setAdvice('');
       setError('');
+      setAdvice('');
       const result = await simulateWeek();
       setData(result);
     } catch (err) {
@@ -39,8 +42,8 @@ function App() {
     
     try {
       setLoading(true);
-      setAdvice('');
       setError('');
+      setAdvice('');
       const prediction = await predictPattern(data.prices);
       console.log('Prediction:', prediction);
     } catch (err) {
@@ -55,69 +58,85 @@ function App() {
     
     try {
       setLoading(true);
-      setAdvice('Loading...');
       setError('');
+      setAdvice('Loading...');
       const result = await getAdvice(data.prices, data.pattern);
       setAdvice(result.advice);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong');
-      setAdvice('')
+      setAdvice('');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <Container maxWidth="md" sx={{ py: 4 }}>
+    <AppLayout>
       {error && (
-        <Alert severity="error" sx={{ mb: 2 }}>
+        <Alert severity="error" sx={{ width: '100%', maxWidth: '600px' }}>
           {error}
         </Alert>
       )}
       
-      <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mb: 3 }}>
-        <Button variant="contained" onClick={handleSimulate} disabled={loading}>
+      <ControlsSection>
+        <Button
+          variant="contained"
+          onClick={handleSimulate}
+          disabled={loading}
+          size="large"
+        >
           {loading ? 'Simulating...' : 'Simulate Week'}
         </Button>
-        <Button variant="outlined" onClick={handlePredict} disabled={!data || loading}>
+        <Button
+          variant="outlined"
+          onClick={handlePredict}
+          disabled={!data || loading}
+          size="large"
+        >
           Predict Pattern
         </Button>
-        <Button variant="outlined" onClick={handleGetAdvice} disabled={!data || loading}>
+        <Button
+          variant="outlined"
+          onClick={handleGetAdvice}
+          disabled={!data || loading}
+          size="large"
+        >
           Get Advice
         </Button>
-      </Box>
+      </ControlsSection>
 
       {data && (
-        <>
-          <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2, my: 3 }}>
-            <TurnipCard 
-              title="Current Pattern"
+        <DataSection
+          cards={
+            <>
+              <TurnipCard 
+                title="Current Pattern"
+                pattern={data.pattern}
+              />
+              <TurnipCard 
+                title="Buy Price"
+                price={data.buyPrice}
+                icon="💰"
+              />
+            </>
+          }
+          chart={
+            <PatternChart 
+              prices={data.prices}
+              buyPrice={data.buyPrice}
               pattern={data.pattern}
             />
-            <TurnipCard 
-              title="Buy Price"
-              price={data.buyPrice}
-              icon="💰"
-            />
-          </Box>
-
-          <PatternChart 
-            prices={data.prices}
-            buyPrice={data.buyPrice}
-            pattern={data.pattern}
-          />
-        </>
+          }
+        />
       )}
 
       {(advice || (loading && advice === 'Loading...')) && (
-        <Box sx={{ mt: 6 }}> {/* More space if needed */}
-          <IsabelleTextBox 
-            message={advice || 'Loading...'} 
-            isLoading={loading && advice === 'Loading...'} 
-          />
-        </Box>
+        <IsabelleTextBox 
+          message={advice || 'Loading...'} 
+          isLoading={loading && advice === 'Loading...'} 
+        />
       )}
-    </Container>
+    </AppLayout>
   );
 }
 
