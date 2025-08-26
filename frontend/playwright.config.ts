@@ -21,16 +21,24 @@ export default defineConfig({
 
   webServer: [
     {
-      command: 'npm run dev',
-      port: 5173,
-      cwd: './',
+      command: 'npm start',
+      port: 3001,
+      cwd: '../backend',
+      env: {
+        DATABASE_URL: 'postgresql://postgres:test@localhost:5432/turnip_test',
+        OPENAI_API_KEY: 'mock_key_for_testing',
+        NODE_ENV: 'test'
+      },
       reuseExistingServer: !process.env.CI,
     },
     {
-      command: 'npm run dev', 
-      port: 3001,
-      cwd: '../backend',
+      command: 'npm run dev',
+      port: 5173,
+      cwd: '.',
+      env: {
+        VITE_API_URL: 'http://localhost:3001/api'
+      },
       reuseExistingServer: !process.env.CI,
-    },
+    }
   ],
 });

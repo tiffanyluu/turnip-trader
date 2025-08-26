@@ -72,20 +72,6 @@ jobs:
             created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
           );
           EOF
-      - name: Start backend server
-        run: |
-          cd backend
-          npm start &
-          sleep 10
-        env:
-          DATABASE_URL: postgresql://postgres:test@localhost:5432/turnip_test
-          OPENAI_API_KEY: mock_key_for_testing
-          NODE_ENV: test
-      - name: Start frontend server
-        run: |
-          cd frontend
-          npm run dev &
-          sleep 10
         env:
           VITE_API_URL: http://localhost:3001/api
       - name: Install Playwright browsers
