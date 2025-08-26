@@ -25,7 +25,7 @@ export default defineConfig({
       port: 3001,
       cwd: '../backend',
       env: {
-        DATABASE_URL: 'postgresql://postgres:test@localhost:5432/turnip_test',
+        DATABASE_URL: 'postgresql://tiffanyluu@localhost:5432/turnip_test',
         OPENAI_API_KEY: 'mock_key_for_testing',
         NODE_ENV: 'test'
       },

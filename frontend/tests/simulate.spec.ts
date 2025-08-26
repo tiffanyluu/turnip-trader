@@ -2,20 +2,10 @@ import { test, expect } from '@playwright/test';
 
 test('simulate button creates cards and advice', async ({ page }) => {
   await page.goto('http://localhost:5173');
-
-  page.on('console', msg => console.log('PAGE LOG:', msg.text()));
-  page.on('response', response => {
-    console.log('RESPONSE:', response.status(), response.url());
-  });
   
   await page.click('text=Simulate Week');
 
   await page.waitForTimeout(3000);
-
-  const errorAlert = page.locator('[role="alert"]');
-  if (await errorAlert.isVisible()) {
-    console.log('ERROR ALERT:', await errorAlert.textContent());
-  }
   
   await expect(page.locator('text=Pattern Type')).toBeVisible();
   await expect(page.locator('text=Buy Price')).toBeVisible();
