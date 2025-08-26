@@ -63,6 +63,16 @@ router.post("/simulate", async (_req: Request, res: Response) => {
 });
 
 const findRelevantGuides = async (queryText: string): Promise<Guide[]> => {
+  if (process.env.NODE_ENV === 'test') {
+    return [
+      {
+        id: 1,
+        title: "Mock Guide",
+        content: "Mock trading advice for testing"
+      }
+    ];
+  }
+  
   try {
     const queryEmbedding = await generateEmbedding(queryText);
     const queryVector = `[${queryEmbedding.join(",")}]`;

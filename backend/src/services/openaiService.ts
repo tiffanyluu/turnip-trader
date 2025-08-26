@@ -7,6 +7,10 @@ const openai = new OpenAI({
 });
 
 export const generateEmbedding = async (text: string): Promise<number[]> => {
+  if (process.env.NODE_ENV === 'test') {
+    return new Array(1536).fill(0.1);
+  }
+  
   const response = await openai.embeddings.create({
     model: "text-embedding-3-small",
     input: text,
@@ -19,6 +23,10 @@ export const generateAdvice = async (
   context: string,
   prices: string
 ): Promise<string> => {
+  if (process.env.NODE_ENV === 'test') {
+    return "This is mock advice for testing purposes.";
+  }
+
   const response = await openai.chat.completions.create({
     model: "gpt-4o-mini",
     messages: [

@@ -9,14 +9,14 @@ It combines the simulation of in-game price patterns with **RAG (Retrieval-Augme
 
 ## **Live Demo:** [Turnip Trader](https://turnip-trader.vercel.app/)
 
-## Features  
+### Features  
 
 - **Turnip Price Simulation**: Simulate a full week of realistic prices based on in-game mechanics.  
 - **RAG System**: Retrieve strategies and insights from a vector database of community guides.  
 - **LLM-Powered Advice**: Combine your simulated week with retrieved guides for personalized recommendations from Animal Crossing's Isabelle.  
 - **Vector Database**: PostgreSQL with pgvector stores embeddings of trading guides for semantic search.  
 
-## Tech Stack  
+### Tech Stack  
 
 - **Frontend**: React + TypeScript  
 - **Backend**: Node.js + Express  
@@ -24,7 +24,7 @@ It combines the simulation of in-game price patterns with **RAG (Retrieval-Augme
 - **AI**: OpenAI GPT-4 + text-embedding-3-small  
 - **Deployment**: Vercel (frontend) + Render (backend)
 
-## How It Works  
+### How It Works  
 
 1. **Simulate Scenario** – Simulate a week of turnip prices using real Animal Crossing patterns
 2. **Semantic Search** – Find relevant trading strategies from embedded guide database  
