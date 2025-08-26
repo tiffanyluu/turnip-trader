@@ -11,7 +11,9 @@
     "seed-guides": "tsx src/seedData/seedGuides.ts",
     "db:setup": "tsx src/db/setup.ts",
     "db:reset": "tsx src/db/setup.ts && npm run seed-guides",
-    "setup": "npm run db:setup && npm run seed-guides"
+    "setup": "npm run db:setup && npm run seed-guides",
+    "test": "vitest",
+    "test:run": "vitest run"
   },
   "keywords": [],
   "author": "",
@@ -29,7 +31,9 @@
     "@types/express": "^5.0.3",
     "@types/node": "^24.3.0",
     "@types/pg": "^8.15.5",
-    "tsx": "^4.20.4",
-    "typescript": "^5.9.2"
+    "supertest": "^7.1.4",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
   }
 }

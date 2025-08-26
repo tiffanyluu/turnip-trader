@@ -14,7 +14,7 @@ export const generateTurnipWeek = (): TurnipWeek => {
 
   const prices: number[] = [];
 
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < 12; i++) {
     if (pattern === "large_spike" && i === 2) {
       prices.push(buyPrice * (2.0 + Math.random() * 4.0));
     } else if (pattern === "small_spike" && i === 2) {

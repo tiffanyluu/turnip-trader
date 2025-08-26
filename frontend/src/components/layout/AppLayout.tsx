@@ -41,7 +41,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         </Toolbar>
       </AppBar>
 
-      <Container maxWidth="md" sx={{ py: 3, flexGrow: 1 }}>
+      <Container maxWidth="lg" sx={{ py: 3, flexGrow: 1 }}>
         <Box
           sx={{
             display: 'flex',

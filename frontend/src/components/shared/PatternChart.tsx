@@ -24,28 +24,27 @@ const PatternChart: React.FC<PatternChartProps> = ({
     return {
       day: days[index] || `Day ${index + 1}`,
       price: price,
-      buyPrice: buyPrice || 100, // Reference line
+      buyPrice: buyPrice || 100,
     };
   });
 
   const getLineColor = () => {
     switch (pattern?.toLowerCase()) {
-      case 'spike': return theme.palette.success.main;
+      case 'large_spike': return theme.palette.success.main;
+      case 'small_spike': return theme.palette.warning.main;
       case 'decreasing': return theme.palette.error.main;
-      case 'random': return theme.palette.warning.main;
-      case 'flat': return theme.palette.info.main;
-      case 'mixed': return theme.palette.secondary.main;
+      case 'random': return theme.palette.info.main;
       default: return theme.palette.primary.main;
     }
   };
 
   return (
-    <Box sx={{ width: '100%', height: 300 }}>
+    <Box sx={{ width: '100%', height: 250 }}> 
       {title && (
         <Typography 
           variant="h6" 
           sx={{ 
-            mb: 2, 
+            mb: 1,
             textAlign: 'center',
             color: 'primary.dark' 
           }}
@@ -55,17 +54,20 @@ const PatternChart: React.FC<PatternChartProps> = ({
       )}
       
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={chartData}>
+        <LineChart data={chartData} margin={{ top: 5, right: 5, left: 5, bottom: 40 }}>
           <CartesianGrid strokeDasharray="3 3" stroke={theme.palette.grey[300]} />
           
           <XAxis 
             dataKey="day" 
-            tick={{ fontSize: 12, fontWeight: 700 }}
+            tick={{ fontSize: 11 }}
             stroke={theme.palette.text.secondary}
+            interval={0}
+            angle={-30}
+            textAnchor="end"
           />
           
           <YAxis 
-            tick={{ fontSize: 12, fontWeight: 700  }}
+            tick={{ fontSize: 11 }}
             stroke={theme.palette.text.secondary}
             label={{ value: 'Bells', angle: -90, position: 'insideLeft' }}
           />

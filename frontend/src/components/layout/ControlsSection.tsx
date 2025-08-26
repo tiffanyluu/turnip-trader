@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 
 interface ControlsSectionProps {
   children: React.ReactNode;
@@ -8,16 +8,6 @@ interface ControlsSectionProps {
 const ControlsSection: React.FC<ControlsSectionProps> = ({ children }) => {
   return (
     <Box sx={{ textAlign: 'center' }}>
-      <Typography
-        variant="h5"
-        sx={{
-          mb: 3,
-          color: 'primary.dark',
-          fontWeight: 600,
-        }}
-      >
-        Trading Tools
-      </Typography>
       <Box sx={{
         display: 'flex',
         flexWrap: 'wrap',

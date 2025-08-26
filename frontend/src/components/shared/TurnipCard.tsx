@@ -5,7 +5,6 @@ interface TurnipCardProps {
   title: string;
   price?: number;
   pattern?: string;
-  confidence?: number;
   children?: React.ReactNode;
   icon?: string;
 }
@@ -14,7 +13,6 @@ const TurnipCard: React.FC<TurnipCardProps> = ({
   title,
   price,
   pattern,
-  confidence,
   children,
   icon = '🥕'
 }) => {
@@ -73,6 +71,8 @@ const TurnipCard: React.FC<TurnipCardProps> = ({
               fontWeight: 800,
               mb: 1,
               textShadow: '1px 1px 2px rgba(0,0,0,0.1)',
+              display: 'flex', 
+              justifyContent: 'center'
             }}
           >
             {price} Bells
@@ -80,27 +80,14 @@ const TurnipCard: React.FC<TurnipCardProps> = ({
         )}
 
         {pattern && (
-          <Box sx={{ mb: 2 }}>
+          <Box sx={{ mb: 2, display: 'flex', justifyContent: 'center' }}>
             <Chip
-              label={pattern.charAt(0).toUpperCase() + pattern.slice(1)}
+              label={pattern.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}
               color={getPatternColor(pattern)}
               variant="filled"
               sx={{ fontWeight: 700 }}
             />
           </Box>
-        )}
-
-        {confidence && (
-          <Typography
-            variant="body2"
-            sx={{ 
-              color: 'text.secondary',
-              mb: 1,
-              fontWeight: 700,
-            }}
-          >
-            Confidence: {Math.round(confidence * 100)}%
-          </Typography>
         )}
 
         {children}

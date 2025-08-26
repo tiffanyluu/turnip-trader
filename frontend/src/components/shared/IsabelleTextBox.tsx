@@ -13,6 +13,7 @@ const IsabelleTextBox: React.FC<IsabelleTextBoxProps> = ({
   return (
     <Paper
       elevation={3}
+      data-testid="isabelle-textbox"
       sx={{
         position: 'relative',
         backgroundColor: '#FFF8DC', // Cream background

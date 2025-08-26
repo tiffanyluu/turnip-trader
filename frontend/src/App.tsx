@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { Button, Alert } from '@mui/material';
+import { Button, Alert, Box } from '@mui/material';
 import { simulateWeek } from './services/api';
 import AppLayout from './components/layout/AppLayout';
 import ControlsSection from './components/layout/ControlsSection';
-import DataSection from './components/layout/DataSection';
 import IsabelleTextBox from './components/shared/IsabelleTextBox';
 import TurnipCard from './components/shared/TurnipCard';
 import PatternChart from './components/shared/PatternChart';
@@ -27,6 +26,7 @@ function App() {
     try {
       setLoading(true);
       setError('');
+      setData(null);
       const result = await simulateWeek();
       setData(result);
     } catch (err) {
@@ -39,7 +39,7 @@ function App() {
   return (
     <AppLayout>
       {error && (
-        <Alert severity="error" sx={{ width: '100%', maxWidth: '600px' }}>
+        <Alert severity="error" sx={{ width: '100%', maxWidth: '1000px' }}>
           {error}
         </Alert>
       )}
@@ -50,41 +50,70 @@ function App() {
           onClick={handleSimulate}
           disabled={loading}
           size="large"
+          sx={{fontWeight: 'bold'}}
         >
           {loading ? 'Simulating...' : 'Simulate Week'}
         </Button>
       </ControlsSection>
 
       {data && (
-        <DataSection
-          cards={
-            <>
-              <TurnipCard 
-                title="Current Pattern"
-                pattern={data.pattern}
-              />
-              <TurnipCard 
-                title="Buy Price"
-                price={data.buyPrice}
-                icon="💰"
-              />
-            </>
-          }
-          chart={
-            <PatternChart 
-              prices={data.prices}
-              buyPrice={data.buyPrice}
+        <Box sx={{ width: '100%', maxWidth: '1000px' }}>
+          <Box sx={{ 
+            display: 'flex',
+            flexDirection: { xs: 'column', sm: 'row' },
+            gap: 2,
+            mb: 3,
+            justifyContent: 'center'
+          }}>
+            <TurnipCard 
+              title="Pattern Type"
               pattern={data.pattern}
             />
-          }
-        />
-      )}
+            <TurnipCard 
+              title="Buy Price"
+              price={data.buyPrice}
+              icon="💰"
+            />
+          </Box>
 
-      {data?.advice && (
-        <IsabelleTextBox 
-          message={data.advice}
-          isLoading={loading}
-        />
+          <Box sx={{
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
+            gap: 3,
+            alignItems: 'start'
+          }}>
+            <Box sx={{
+              backgroundColor: 'background.paper',
+              borderRadius: 3,
+              p: 2,
+              border: '2px solid',
+              borderColor: 'primary.light',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: '100%'
+            }}>
+              <PatternChart 
+                prices={data.prices}
+                buyPrice={data.buyPrice}
+                pattern={data.pattern}
+              />
+            </Box>
+
+            <Box sx={{ 
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: '100%'
+            }}>
+              {data.advice && (
+                <IsabelleTextBox 
+                  message={data.advice}
+                />
+              )}
+            </Box>
+          </Box>
+        </Box>
       )}
     </AppLayout>
   );

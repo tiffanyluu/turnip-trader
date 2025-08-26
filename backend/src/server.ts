@@ -10,6 +10,10 @@ app.use(cors());
 app.use(express.json());
 app.use("/api", turnipRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port: ${PORT}`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port: ${PORT}`);
+  });
+}
+
+export default app;

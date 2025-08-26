@@ -14,7 +14,7 @@ const DataSection: React.FC<DataSectionProps> = ({ cards, chart }) => {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      gap: 3
+      gap: 2
     }}>
       {cards && (
         <Box sx={{ 
@@ -32,7 +32,7 @@ const DataSection: React.FC<DataSectionProps> = ({ cards, chart }) => {
         <Box sx={{
           backgroundColor: 'background.paper',
           borderRadius: 3,
-          p: 2,
+          p: 1.5,
           border: '2px solid',
           borderColor: 'primary.light',
           width: '100%',
