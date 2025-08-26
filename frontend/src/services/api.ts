@@ -2,7 +2,7 @@ import axios from 'axios';
 import type { AxiosResponse } from 'axios';
 import type { ApiResponse, TurnipPattern } from '../types/turnip';
 
-const API_BASE_URL = 'http://localhost:3001/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://turnip-trader.onrender.com/api';
 const TIMEOUT = 10000;
 
 interface SimulateData {
