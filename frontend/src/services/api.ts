@@ -50,11 +50,9 @@ const handleApiError = (error: unknown, operation: string): never => {
 
 export const simulateWeek = async (): Promise<SimulateData> => {
   try {
-    console.log('Simulating turnip week...');
     const response: AxiosResponse<ApiResponse<SimulateData>> = await api.post('/simulate');
     
     if (response.data.success && response.data.data) {
-      console.log('Week simulated successfully:', response.data.data);
       return response.data.data;
     } else {
       throw new Error(response.data.error || 'Simulation failed');
