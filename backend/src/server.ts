@@ -6,7 +6,13 @@ import turnipRoutes from "./routes/turnipRoutes";
 
 const app: Application = express();
 const PORT = process.env.PORT || 3001;
-app.use(cors());
+app.use(cors({
+  origin: "https://turnip-trader.vercel.app",
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type"],
+  credentials: true
+}));
+app.options("*", cors());
 app.use(express.json());
 app.use("/api", turnipRoutes);
 
