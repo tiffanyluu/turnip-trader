@@ -53,17 +53,15 @@ jobs:
         run: |
           cd frontend
           npm ci
-      - name: Setup test database with pgvector
+      - name: Setup test database
         run: |
           sudo apt-get update
           sudo apt-get install postgresql-client
-          PGPASSWORD=test psql -h localhost -U postgres -d turnip_test -c "CREATE EXTENSION IF NOT EXISTS vector;"
           PGPASSWORD=test psql -h localhost -U postgres -d turnip_test -f - << 'EOF'
           CREATE TABLE guides (
             id SERIAL PRIMARY KEY,
             title VARCHAR(255) NOT NULL,
             content TEXT NOT NULL,
-            embedding vector(1536),
             created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
           );
           CREATE TABLE turnip_weeks (
