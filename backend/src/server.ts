@@ -6,14 +6,13 @@ import turnipRoutes from "./routes/turnipRoutes";
 
 const app: Application = express();
 
-const allowedOrigin =
-  process.env.NODE_ENV === "test"
-    ? "*"
-    : "http://localhost:5173";
+const allowedOrigins = process.env.NODE_ENV === "test" 
+  ? "*" 
+  : ["http://localhost:5173", "https://turnip-trader.vercel.app"];
 
 app.use(
   cors({
-    origin: allowedOrigin,
+    origin: allowedOrigins,
     methods: ["GET", "POST", "OPTIONS"],
     allowedHeaders: ["Content-Type"],
   })
