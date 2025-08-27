@@ -22,7 +22,6 @@ It combines the simulation of in-game price patterns with **RAG (Retrieval-Augme
 - **Backend**: Node.js + Express  
 - **Database**: PostgreSQL + pgvector for vector similarity search  
 - **AI**: OpenAI GPT-4 + text-embedding-3-small  
-- **Deployment**: Vercel (frontend) + Render (backend)
 
 ### How It Works  
 
@@ -30,3 +29,16 @@ It combines the simulation of in-game price patterns with **RAG (Retrieval-Augme
 2. **Semantic Search** – Find relevant trading strategies from embedded guide database  
 3. **Isabelle's Analysis** – Isabelle combines scenario + guides to provide contextual advice
 4. **Visual Display** – View patterns through charts and cards with Animal Crossing styling
+
+## Deployment Notes
+
+This application is deployed on free-tier hosting:
+- **Frontend**: Vercel
+- **Backend**: Render 
+
+**Important**: The backend service sleeps after 15 minutes of inactivity. On first use, you may need to:
+1. Visit https://turnip-trader.onrender.com/health to wake the service
+2. Wait 30-60 seconds for the backend to start
+3. Refresh the main application
+
+This is a limitation of free hosting tiers, not the application itself.
