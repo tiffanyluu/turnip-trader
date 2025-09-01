@@ -9,16 +9,6 @@ It combines the simulation of in-game price patterns with **RAG (Retrieval-Augme
 
 ## **Live Demo:** [Turnip Trader](https://turnip-trader.vercel.app/)
 
-## Important
-
-The backend service sleeps after 15 minutes of inactivity. On first use, you may need to:
-
-1. Visit https://turnip-trader.onrender.com/health to wake the service
-2. Wait 30-60 seconds for the backend to start
-3. Refresh the main application
-
-This is a limitation of free hosting tiers, not the application itself.
-
 ### Features  
 
 - **Turnip Price Simulation**: Simulate a full week of realistic prices based on in-game mechanics.  
