@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { Button, Alert, Box } from '@mui/material';
 import { simulateWeek } from './services/api';
-import AppLayout from './components/layout/AppLayout';
-import ControlsSection from './components/layout/ControlsSection';
-import IsabelleTextBox from './components/shared/IsabelleTextBox';
-import TurnipCard from './components/shared/TurnipCard';
-import PatternChart from './components/shared/PatternChart';
+import AppLayout from './components/Layout';
+import IsabelleTextBox from './components/IsabelleTextBox';
+import TurnipCard from './components/TurnipCard';
+import PatternChart from './components/PatternChart';
 import type { TurnipPattern } from './types/turnip';
 
 interface SimulateData {
@@ -44,17 +43,26 @@ function App() {
         </Alert>
       )}
       
-      <ControlsSection>
-        <Button
-          variant="contained"
-          onClick={handleSimulate}
-          disabled={loading}
-          size="large"
-          sx={{fontWeight: 'bold'}}
+      <Box sx={{ textAlign: 'center' }}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            gap: 2,
+          }}
         >
-          {loading ? 'Simulating...' : 'Simulate Week'}
-        </Button>
-      </ControlsSection>
+          <Button
+            variant="contained"
+            onClick={handleSimulate}
+            disabled={loading}
+            size="large"
+            sx={{ fontWeight: 'bold' }}
+          >
+            {loading ? 'Simulating...' : 'Simulate Week'}
+          </Button>
+        </Box>
+      </Box>
 
       {data && (
         <Box sx={{ width: '100%', maxWidth: '1000px' }}>
