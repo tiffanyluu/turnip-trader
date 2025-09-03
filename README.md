@@ -22,7 +22,6 @@ It combines the simulation of in-game price patterns with **RAG (Retrieval-Augme
 - **Backend**: Node.js + Express  
 - **Database**: PostgreSQL + pgvector for vector similarity search  
 - **AI**: OpenAI GPT-4 + text-embedding-3-small  
-- **Deployment**: Frontend (Vercel) + Backend (Render)
 
 ### How It Works  
 
