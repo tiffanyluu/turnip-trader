@@ -25,7 +25,7 @@ It combines the simulation of in-game price patterns with **RAG (Retrieval-Augme
 
 ### How It Works  
 
-1. **Simulate Scenario** – Simulate a week of turnip prices using real Animal Crossing patterns
-2. **Semantic Search** – Find relevant trading strategies from embedded guide database  
-3. **Isabelle's Analysis** – Isabelle combines scenario + guides to provide contextual advice
-4. **Visual Display** – View patterns through charts and cards with Animal Crossing styling
+1. **Simulate Scenario** – Simulate a week of turnip prices using real Animal Crossing patterns.
+2. **Semantic Search** – Find relevant trading strategies from embedded guide database.  
+3. **Isabelle's Analysis** – Isabelle combines scenario + guides to provide contextual advice.
+4. **Visual Display** – View patterns through charts and cards with Animal Crossing styling.
