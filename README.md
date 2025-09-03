@@ -1,4 +1,4 @@
-# Turnip Trader  
+# 🥕 Turnip Trader 🍃 
 
 Turnip Trader is an AI-powered turnip price simulator and advisor for *Animal Crossing*.  
 It combines the simulation of in-game price patterns with **RAG (Retrieval-Augmented Generation)** over community trading guides to generate practical advice on when to sell.  
